@@ -3,10 +3,11 @@ require 'nn'
 require 'optim'
 
 opt = {
-   dataset = 'lsun',       -- imagenet / lsun / folder
+   dataset = 'folder',     -- imagenet / lsun / folder
    batchSize = 64,
    loadSize = 96,
-   fineSize = 64,
+   wSize = 64,             -- input image width
+   hSize = 64,             -- input image height
    nz = 100,               -- #  of dim for Z
    ngf = 64,               -- #  of gen filters in first conv layer
    ndf = 64,               -- #  of discrim filters in first conv layer
@@ -114,7 +115,7 @@ optimStateD = {
    beta1 = opt.beta1,
 }
 ----------------------------------------------------------------------------
-local input = torch.Tensor(opt.batchSize, 3, opt.fineSize, opt.fineSize)
+local input = torch.Tensor(opt.batchSize, 3, opt.wSize, opt.hSize)
 local noise = torch.Tensor(opt.batchSize, nz, 1, 1)
 local label = torch.Tensor(opt.batchSize)
 local errD, errG
